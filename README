@@ -1,0 +1,12 @@
+         Littering - API
+=================================
+
+
+
+```
+git clone https://github.com/mikalveli/swagger-core
+cd swagger-core
+git checkout 1.3.12-play2.4
+cd modules/swagger-play2
+sbt publish-local
+```
