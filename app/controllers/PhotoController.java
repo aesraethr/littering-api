@@ -33,8 +33,8 @@ public class PhotoController extends BaseApiController {
     public Result put(){
         try{
             String name = request().body().asMultipartFormData().asFormUrlEncoded().get("name")[0];
-            long longitude = Long.parseLong(request().body().asMultipartFormData().asFormUrlEncoded().get("longitude")[0]);
-            long latitude = Long.parseLong(request().body().asMultipartFormData().asFormUrlEncoded().get("latitude")[0]);
+            double longitude = Double.parseDouble(request().body().asMultipartFormData().asFormUrlEncoded().get("longitude")[0]);
+            double latitude = Double.parseDouble(request().body().asMultipartFormData().asFormUrlEncoded().get("latitude")[0]);
             long timestamp = Long.parseLong(request().body().asMultipartFormData().asFormUrlEncoded().get("timestamp")[0]);
             String description = request().body().asMultipartFormData().asFormUrlEncoded().get("name")[0];
             File file = request().body().asMultipartFormData().getFile("image").getFile();

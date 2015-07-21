@@ -12,14 +12,14 @@ public class Photo {
     private String id;
     private String name;
     private String url;
-    private long longitude;
-    private long latitude;
+    private double longitude;
+    private double latitude;
     private long timestamp;
     private String description;
 
     public Photo(){}
 
-    public Photo(String name, String url, long longitude, long latitude, long timestamp, String description) {
+    public Photo(String name, String url, double longitude, double latitude, long timestamp, String description) {
         this.name = name;
         this.url = url;
         this.longitude = longitude;
@@ -28,7 +28,7 @@ public class Photo {
         this.description = description;
     }
 
-    public Photo(String id, String name, String url, long longitude, long latitude, long timestamp, String description) {
+    public Photo(String id, String name, String url, double longitude, double latitude, long timestamp, String description) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -64,18 +64,18 @@ public class Photo {
     }
 
     @DynamoDBAttribute(attributeName = "Longitude")
-    public long getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
     @DynamoDBAttribute(attributeName = "Latitude")
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 

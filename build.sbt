@@ -12,7 +12,8 @@ libraryDependencies ++= Seq(
   javaWs,
   "com.amazonaws" % "aws-java-sdk" % "1.10.4",
   "com.wordnik" % "swagger-core" % "1.5.3-M1",
-  "org.imgscalr" % "imgscalr-lib" % "4.2"
+  "org.imgscalr" % "imgscalr-lib" % "4.2",
+  "com.google.code.gson" % "gson" % "2.3.1"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the

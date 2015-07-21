@@ -41,8 +41,8 @@ public class PhotoDB {
                     item.get("Id").getS(),
                     item.get("Name").getS(),
                     item.get("Url").getS(),
-                    Long.parseLong(item.get("Longitude").getN()),
-                    Long.parseLong(item.get("Latitude").getN()),
+                    Double.parseDouble(item.get("Longitude").getN()),
+                    Double.parseDouble(item.get("Latitude").getN()),
                     Long.parseLong(item.get("Timestamp").getN()),
                     item.get("Description").getS()
                             );
