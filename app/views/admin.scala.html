@@ -1,66 +1,40 @@
-@(photos: List[db.Photo])
+@(photos: List[db.Photo], configuration: db.Config)
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+
 <script type="text/javascript">
-    $(document).ready(function() {
-
-    $('#table').dataTable();
-
-
+    $(function() {
+    $('#moderation').bootstrapToggle({
+      on: 'Activée',
+      off: 'Désactivée'
     });
-
-    function supprimer(id) {
+    @if(configuration.isModeration){
+    $('#moderation').bootstrapToggle('on')
+    } else {
+    $('#moderation').bootstrapToggle('off')
+    }
+    $('#moderation').change(function() {
         $.ajax({
-                    url: 'api/photos/'+id ,
-                    type: 'DELETE',
+                    url: '/togglemoderation' ,
+                    type: 'GET',
                     success: function(result) {
                         location.reload();
                     }
                 });
-    }
+    });
+  })
 </script>
+<div style="padding: 10px" align="right"> <b>Modération</b> <input id="moderation" type="checkbox"></div>
 
-<table id="table" class="display" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>photo</th>
-            <th>longitude</th>
-            <th>latitude</th>
-            <th>timestamp</th>
-            <th>description</th>
-            <th>supprimer</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @for(photo <- photos){
-            <tr>
-                <td>@photo.getId</td>
-                <td>@photo.getName</td>
-                <td align="center"><img src="@photo.getUrl" width="150px"></td>
-                <td align="center">@photo.getLongitude</td>
-                <td align="center">@photo.getLatitude</td>
-                <td align="center">@photo.getTimestamp</td>
-                <td>@photo.getDescription</td>
-                <td style="cursor:pointer" align="center" onclick="supprimer('@photo.getId')"><img src="/assets/images/Rubbish_bin_24.png"></td>
-            </tr>
-        }
-    </tbody>
-
-    <tfoot>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>photo</th>
-            <th>longitude</th>
-            <th>latitude</th>
-            <th>timestamp</th>
-            <th>description</th>
-            <th>supprimer</th>
-        </tr>
-    </tfoot>
-</table>
+<div style="padding: 10px">
+@if(configuration.isModeration){
+    @moderated(photos)
+} else {
+    @nonmoderated(photos)
+}
+</div>

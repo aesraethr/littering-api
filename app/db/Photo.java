@@ -1,10 +1,7 @@
 package db;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import java.util.List;
 
 @DynamoDBTable(tableName = "Photos")
 public class Photo {
@@ -16,6 +13,7 @@ public class Photo {
     private double latitude;
     private long timestamp;
     private String description;
+    private boolean valide;
 
     public Photo(){}
 
@@ -28,7 +26,7 @@ public class Photo {
         this.description = description;
     }
 
-    public Photo(String id, String name, String url, double longitude, double latitude, long timestamp, String description) {
+    public Photo(String id, String name, String url, double longitude, double latitude, long timestamp, String description, boolean valide) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -36,6 +34,7 @@ public class Photo {
         this.latitude = latitude;
         this.timestamp = timestamp;
         this.description = description;
+        this.valide = valide;
     }
 
     @DynamoDBHashKey(attributeName = "Id")
@@ -95,6 +94,14 @@ public class Photo {
         this.description = description;
     }
 
+    @DynamoDBAttribute(attributeName = "Valide")
+    public boolean isValide() {
+        return valide;
+    }
+    public void setValide(boolean valide) {
+        this.valide = valide;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -105,6 +112,7 @@ public class Photo {
                 .append("latitude", latitude)
                 .append("timestamp", timestamp)
                 .append("description", description)
+                .append("valide",valide)
                 .toString();
     }
 

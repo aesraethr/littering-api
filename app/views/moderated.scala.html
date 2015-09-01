@@ -1,0 +1,133 @@
+@(photos: List[db.Photo])
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+    $('.table').dataTable();
+
+
+    });
+
+    function supprimer(id) {
+        $.ajax({
+                    url: 'api/photos/'+id ,
+                    type: 'DELETE',
+                    success: function(result) {
+                        location.reload();
+                    }
+                });
+    }
+
+    function approuver(id) {
+        $.ajax({
+                    url: 'api/photos/approuver/'+id ,
+                    type: 'GET',
+                    success: function(result) {
+                        location.reload();
+                    }
+                });
+    }
+
+</script>
+
+<h2>Photos en attente de Modération</h2>
+
+<table id="moderation" class="display table" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>photo</th>
+            <th>longitude</th>
+            <th>latitude</th>
+            <th>timestamp</th>
+            <th>description</th>
+            <th>approuver</th>
+            <th>supprimer</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for(photo <- photos){
+            @if(!photo.isValide) {
+
+                <tr>
+                    <td>@photo.getId</td>
+                    <td>@photo.getName</td>
+                    <td align="center"><img src="@photo.getUrl" width="150px"></td>
+                    <td align="center">@photo.getLongitude</td>
+                    <td align="center">@photo.getLatitude</td>
+                    <td align="center">@photo.getTimestamp</td>
+                    <td>@photo.getDescription</td>
+                    <td style="cursor:pointer" align="center" onclick="approuver('@photo.getId')"><span class="glyphicon glyphicon-ok" ></span></td>
+                    <td style="cursor:pointer" align="center" onclick="supprimer('@photo.getId')"><img src="/assets/images/Rubbish_bin_24.png"></td>
+                </tr>
+
+            }
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>photo</th>
+            <th>longitude</th>
+            <th>latitude</th>
+            <th>timestamp</th>
+            <th>description</th>
+            <th>approuver</th>
+            <th>supprimer</th>
+        </tr>
+    </tfoot>
+</table>
+
+
+<h2>Photos Acceptées</h2>
+
+<table id="acceptees" class="display table" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>photo</th>
+            <th>longitude</th>
+            <th>latitude</th>
+            <th>timestamp</th>
+            <th>description</th>
+            <th>supprimer</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for(photo <- photos){
+            @if(photo.isValide) {
+
+                <tr>
+                    <td>@photo.getId</td>
+                    <td>@photo.getName</td>
+                    <td align="center"><img src="@photo.getUrl" width="150px"></td>
+                    <td align="center">@photo.getLongitude</td>
+                    <td align="center">@photo.getLatitude</td>
+                    <td align="center">@photo.getTimestamp</td>
+                    <td>@photo.getDescription</td>
+                    <td style="cursor:pointer" align="center" onclick="supprimer('@photo.getId')"><img src="/assets/images/Rubbish_bin_24.png"></td>
+                </tr>
+
+            }
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>photo</th>
+            <th>longitude</th>
+            <th>latitude</th>
+            <th>timestamp</th>
+            <th>description</th>
+            <th>supprimer</th>
+        </tr>
+    </tfoot>
+</table>
